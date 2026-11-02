@@ -1,0 +1,455 @@
+{
+  "audited_at": "2026-11-02",
+  "scope": "Exact selected source from private original repositories; not independent executable examples or full repository disclosure.",
+  "records": [
+    {
+      "project": "munglog",
+      "public_path": "evidence/munglog/idempotency.rs",
+      "source_commit": "d3c795b125a99d3cbb35bf8e646997e6dc4ec48e",
+      "source_path": "services/api/src/idempotency.rs",
+      "source_file_sha256": "b03fa7bff28baa9d610f5b81af97d3ed88e9c7c90b1b667253545d39fc14d73a",
+      "source_git_blob": "d2ed8bd9307efcc55ca9273783dd5f89def02fc5",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Typed actor/request scope, transaction lock and stored response reuse.",
+      "segments": [
+        {
+          "original_start": 7,
+          "original_end": 52,
+          "public_start": 8,
+          "public_end": 53,
+          "selected_sha256": "4fb293ee20f524e11f12f8cb522c64737302f5523ebca5287fe184ff95737ffe"
+        }
+      ],
+      "public_sha256": "39a2454fb38d846622e198fc989343fc6ab5b449638e7ed7348fc28135b9b04d"
+    },
+    {
+      "project": "munglog",
+      "public_path": "evidence/munglog/outbox-claim.rs",
+      "source_commit": "d3c795b125a99d3cbb35bf8e646997e6dc4ec48e",
+      "source_path": "services/api/src/push.rs",
+      "source_file_sha256": "ad11213001ee17fef9f9d5d3c5b7cf7583c765d07a5483f26c6c64b5a16e4424",
+      "source_git_blob": "0b3d3af6f8c0dadd87178ca6c72de0637139b67f",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Current membership and event state are checked when claiming one outbox task.",
+      "segments": [
+        {
+          "original_start": 618,
+          "original_end": 672,
+          "public_start": 8,
+          "public_end": 62,
+          "selected_sha256": "77e6c5e0049e813858d6ebfaec3aaf3a5f3d340c2f4f72e78c4f20a9ba5dbaab"
+        }
+      ],
+      "public_sha256": "1f4831f65f4491ec7edb85d695eccb7286fbe9d0e60250317eb8e48b50945ad4"
+    },
+    {
+      "project": "munglog",
+      "public_path": "evidence/munglog/event-enqueue.rs",
+      "source_commit": "d3c795b125a99d3cbb35bf8e646997e6dc4ec48e",
+      "source_path": "services/api/src/events.rs",
+      "source_file_sha256": "c98050f615ee2ad264ea241d2368cb6f28f09df6f6c4b539361a787001e0b3e5",
+      "source_git_blob": "ba1f7d44236d8a0adaf5073a8df9dfe00b7eff84",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Enqueue receives the same transaction as event storage; already deleted events do not enqueue.",
+      "segments": [
+        {
+          "original_start": 202,
+          "original_end": 217,
+          "public_start": 8,
+          "public_end": 23,
+          "selected_sha256": "28e18b2f805cddf1f6cbf3fa01ac587b14e488a4d5e159afe076701bf4361ba2"
+        }
+      ],
+      "public_sha256": "0835913271c0a85b787c2865faa70dd0a4c909dc1b835478f60e4f40d29c69a6"
+    },
+    {
+      "project": "munglog",
+      "public_path": "evidence/munglog/record-replica.kt",
+      "source_commit": "d3c795b125a99d3cbb35bf8e646997e6dc4ec48e",
+      "source_path": "apps/collector-android/core-viewer/src/main/kotlin/com/kullstudio/munglog/viewer/ViewerRecordReplica.kt",
+      "source_file_sha256": "0693163a3d4448272750df40c1b26fe8b089229acbf3730d9faf770471b03933",
+      "source_git_blob": "3667730ac978d40f3afb68746508a5ba2a0da8bd",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Revision-aware merging preserves successful writes and the first expiry bound.",
+      "segments": [
+        {
+          "original_start": 11,
+          "original_end": 56,
+          "public_start": 8,
+          "public_end": 53,
+          "selected_sha256": "032e8480151009528497d6f0cf1446c15a201209c6dc4c1d8b2fbd04d92189da"
+        }
+      ],
+      "public_sha256": "d3727079e316595d964df669b5e4be092e510083ca9453e6c3bd8a1d33431b73"
+    },
+    {
+      "project": "munglog",
+      "public_path": "evidence/munglog/auth-refresh.kt",
+      "source_commit": "d3c795b125a99d3cbb35bf8e646997e6dc4ec48e",
+      "source_path": "apps/collector-android/data-viewer/src/main/kotlin/com/kullstudio/munglog/viewer/data/ViewerProtobufApi.kt",
+      "source_file_sha256": "daa29d3e6d6c7e54211c53732faefa19f15c6515f42a3dde74ae1eaa4aeef719",
+      "source_git_blob": "4cd1513f45c007f28d1ad6ce245da7b375017845",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "One token refresh reuses encoded request bytes; stale session and total deadline are rechecked.",
+      "segments": [
+        {
+          "original_start": 452,
+          "original_end": 497,
+          "public_start": 8,
+          "public_end": 53,
+          "selected_sha256": "c53e264b14a96d2bf53701edd860774b4088ffcf6837e938a805ff4219c55b03"
+        }
+      ],
+      "public_sha256": "659a75fa1eeaab58f677c55a0d8fc58a9c0855c56f033cccbd44fcf8b5dd3b52"
+    },
+    {
+      "project": "munglog",
+      "public_path": "evidence/munglog/source-split.kt",
+      "source_commit": "d3c795b125a99d3cbb35bf8e646997e6dc4ec48e",
+      "source_path": "apps/collector-android/app/src/main/java/com/kullstudio/munglog/collector/PersonalizedAudioHead.kt",
+      "source_file_sha256": "ee1f99aba7add26337475eaf0a2897074de48bd7baf2403154e1a14477b8c664",
+      "source_git_blob": "4a45c091750bb995fdb2ab482275c0a2d82c3836",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Split whole recording groups and validate augmentation source membership.",
+      "segments": [
+        {
+          "original_start": 118,
+          "original_end": 155,
+          "public_start": 8,
+          "public_end": 45,
+          "selected_sha256": "afa4ada747951414829dbc668660e1fa365dd172803d7323bea12c67e8c133f9"
+        },
+        {
+          "original_start": 231,
+          "original_end": 245,
+          "public_start": 48,
+          "public_end": 62,
+          "selected_sha256": "f51622a280663411b85f43c9e1910b5279252094a892927895c1d74d641eca26"
+        }
+      ],
+      "public_sha256": "deea8e5485cea5db559d89e308f07eb1b2ab5791a43c1ef4b72d6bc140e1ef77"
+    },
+    {
+      "project": "blink",
+      "public_path": "evidence/blink/latest-state.kt",
+      "source_commit": "d2e90698ccf7f45154979f3cd4bc9ce5fb7ec0fa",
+      "source_path": "eye-android/src/main/java/com/kullstudio/eye/android/LatestValueDispatcher.kt",
+      "source_file_sha256": "e82404a98596ddaec6f6b0fa907f097a8d9d7356dc869e9d796f79012d1dd03b",
+      "source_git_blob": "314670a23286ee944c621dcad22b98ad330d789f",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Pending state is replaced by the latest snapshot; commands have a separate queue.",
+      "segments": [
+        {
+          "original_start": 7,
+          "original_end": 44,
+          "public_start": 8,
+          "public_end": 45,
+          "selected_sha256": "dfa8a34fc4c472ce7e95457f17a488f33c5c5bf694803a6c7ada9d8c779a14b4"
+        }
+      ],
+      "public_sha256": "e1f8fba5449af5563b0c5842be3d36fc904bf60fbb60474ca5fb4d4e35c9af60"
+    },
+    {
+      "project": "blink",
+      "public_path": "evidence/blink/inference-budget.kt",
+      "source_commit": "d2e90698ccf7f45154979f3cd4bc9ce5fb7ec0fa",
+      "source_path": "app/src/main/java/com/blinkroll/app/InferenceWorkBudget.kt",
+      "source_file_sha256": "03e324a8045031b7e9f68bc647f34a0ae40ea7bd1f9851d50f020deaa99766de",
+      "source_git_blob": "2618c7618b0929bc221bca4cb3051f58d70bb153",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Two outstanding inference slots with synchronized accounting and idempotent release.",
+      "segments": [
+        {
+          "original_start": 13,
+          "original_end": 59,
+          "public_start": 8,
+          "public_end": 54,
+          "selected_sha256": "5892f1ede164dc097893c144889db7ecd1191e5c9e7d8c777ffa98e9353d86b4"
+        }
+      ],
+      "public_sha256": "ac5ed7ea1a0640d3255b117bb1b47019c21a1dd8236a18736e08757b7dec9c3a"
+    },
+    {
+      "project": "blink",
+      "public_path": "evidence/blink/event-buffer.kt",
+      "source_commit": "d2e90698ccf7f45154979f3cd4bc9ce5fb7ec0fa",
+      "source_path": "eye-unity-bridge/src/main/java/com/kullstudio/eye/unity/UnityEyeBridge.kt",
+      "source_file_sha256": "35d56b68dbaad89ea2b78b219fef0f66ca297746de24f82a645b31871048682b",
+      "source_git_blob": "f9b35a701d396801a108b71dc8b7e9b750ad141e",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Event ID deduplication, bounded pending queue, poll/confirm and explicit dropped IDs.",
+      "segments": [
+        {
+          "original_start": 481,
+          "original_end": 532,
+          "public_start": 8,
+          "public_end": 59,
+          "selected_sha256": "2a120d04220a6849d6b052c198f568c7d1e9a66bd8ae40055400fdc159fe3efa"
+        }
+      ],
+      "public_sha256": "9622ac9d3f925ed078739c7cbc3bab77ef0c57d22311f2c9f9a163eef8f95037"
+    },
+    {
+      "project": "blink",
+      "public_path": "evidence/blink/direction-port.kt",
+      "source_commit": "d2e90698ccf7f45154979f3cd4bc9ce5fb7ec0fa",
+      "source_path": "eye-unity-bridge/src/main/java/com/kullstudio/eye/unity/UnityCatchDirectionControl.kt",
+      "source_file_sha256": "e15d7932452ad3088cda526aa768aff7697ccde30910e4ff518b58fc5f49fcf1",
+      "source_git_blob": "a7b7395e9c04ee11294f7bbac19d7112bdc7d008",
+      "source_private": true,
+      "kind": "exact-selected-source-excerpt",
+      "context": "Numeric copy only; stale observations, session reset and face/closure clear have separate gates.",
+      "segments": [
+        {
+          "original_start": 9,
+          "original_end": 47,
+          "public_start": 8,
+          "public_end": 46,
+          "selected_sha256": "d0c90e64030e80e772b7f16d26b3d8ad26c1c983435a28ccf38bb05d3d2b0b25"
+        }
+      ],
+      "public_sha256": "c4782f9916be20c7bdb268a8530f225168b5d2bb438116992afdc7a1a3477c14"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/clock-alignment.kt",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "clock-alignment.kt",
+        "proposed_public_path": "evidence/kullchip/clock-alignment.kt",
+        "source_repository": "cheolgyu/KullChip",
+        "source_visibility": "private",
+        "source_commit": "4a9bf15e9b7b0c832ab953f728d22b469dbe4cd3",
+        "source_path": "android-next/mobile/src/main/java/com/kullchip/next/mobile/wear/WearTimelineAuthority.kt",
+        "source_lines": [
+          37,
+          80
+        ],
+        "public_excerpt_lines": [
+          1,
+          44
+        ],
+        "source_file_sha256": "943ab297ebc0846172c2a816032af2736f2daee6f313e005d5ca71e2cbf3656b",
+        "excerpt_sha256": "ea511ebe13fc0c398f983bb6f74381503f675cd001397415423c69c7df6b87e7",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "워치/휴대폰 시계 정렬",
+        "description": "왕복 메시지의 중간 시각으로 시계 오프셋을 계산하고 operation·walk 식별자와 요청 시각 echo를 검사합니다.",
+        "generation": "android-next 8.x sealed"
+      },
+      "public_sha256": "ea511ebe13fc0c398f983bb6f74381503f675cd001397415423c69c7df6b87e7"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/cola-watch-marker.kt",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "cola-watch-marker.kt",
+        "proposed_public_path": "evidence/kullchip/cola-watch-marker.kt",
+        "source_repository": "cheolgyu/ColaZZang",
+        "source_visibility": "private",
+        "source_commit": "5babf326f7ab9fe89297e8125844b452b8cf14e1",
+        "source_path": "app/src/main/java/com/cheolgyu/colazzang/service/v3/DataLayerListenerService.kt",
+        "source_lines": [
+          245,
+          274
+        ],
+        "public_excerpt_lines": [
+          1,
+          30
+        ],
+        "source_file_sha256": "02ecadd347b56831e49a6fed722457e8fa8bfa6185b8f185a6ae364ea5fd0dc9",
+        "excerpt_sha256": "0953916f2089aa0c97e6082feba82f878433b7fd16f08f77a389960971ddca87",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "워치 입력을 현재 산책·GPS 위치와 연결",
+        "description": "워치의 마커 입력을 활성 산책과 최근 위치에 결합해 로컬 기록으로 저장하는 원본 ColaZZang 구간입니다.",
+        "generation": "original ColaZZang"
+      },
+      "public_sha256": "0953916f2089aa0c97e6082feba82f878433b7fd16f08f77a389960971ddca87"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/commit-before-ack.kt",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "commit-before-ack.kt",
+        "proposed_public_path": "evidence/kullchip/commit-before-ack.kt",
+        "source_repository": "cheolgyu/KullChip",
+        "source_visibility": "private",
+        "source_commit": "4a9bf15e9b7b0c832ab953f728d22b469dbe4cd3",
+        "source_path": "android-next/mobile/src/main/java/com/kullchip/next/mobile/wear/MobileWearListenerService.kt",
+        "source_lines": [
+          84,
+          103
+        ],
+        "public_excerpt_lines": [
+          1,
+          20
+        ],
+        "source_file_sha256": "31e033b791d25c7bcb704ab7715510a729d1d726e034286bbded1801f0f68921",
+        "excerpt_sha256": "0787ed150b2afb1dc616c6935613926385fed3ea190e1432c35956189ec32914",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "Room 저장 뒤 ACK",
+        "description": "원본을 시간축에 정렬하고 durable 저장이 끝난 결과로만 ACK를 만듭니다.",
+        "generation": "android-next 8.x sealed"
+      },
+      "public_sha256": "0787ed150b2afb1dc616c6935613926385fed3ea190e1432c35956189ec32914"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/ml0-alignment.kt",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "ml0-alignment.kt",
+        "proposed_public_path": "evidence/kullchip/ml0-alignment.kt",
+        "source_repository": "cheolgyu/KullChip",
+        "source_visibility": "private",
+        "source_commit": "4a9bf15e9b7b0c832ab953f728d22b469dbe4cd3",
+        "source_path": "android-next/core/src/main/kotlin/com/kullchip/next/core/derivation/Ml0BodyFrameNormalizer.kt",
+        "source_lines": [
+          67,
+          102
+        ],
+        "public_excerpt_lines": [
+          1,
+          36
+        ],
+        "source_file_sha256": "7eac848cde4365234095ebac33fa54f6c2f69d0df62a1c06051ef5b83eca5013",
+        "excerpt_sha256": "19bab895216bce27ccb5356d105aa30a08b33771a2500edeaf5a27d13ad05681",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "자세·방향 관측에 따른 ML0 좌표 정규화",
+        "description": "GNSS 방향·quaternion 관측이 모두 있을 때의 몸축 변환과 중력·장착축 fallback을 나누고 정렬 품질·관측 비율을 결과에 남깁니다.",
+        "generation": "android-next 8.x sealed"
+      },
+      "public_sha256": "19bab895216bce27ccb5356d105aa30a08b33771a2500edeaf5a27d13ad05681"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/ml2-input-lineage.kt",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "ml2-input-lineage.kt",
+        "proposed_public_path": "evidence/kullchip/ml2-input-lineage.kt",
+        "source_repository": "cheolgyu/KullChip",
+        "source_visibility": "private",
+        "source_commit": "4a9bf15e9b7b0c832ab953f728d22b469dbe4cd3",
+        "source_path": "android-next/core/src/main/kotlin/com/kullchip/next/core/derivation/Ml2PredictionContextBuilder.kt",
+        "source_lines": [
+          14,
+          55
+        ],
+        "public_excerpt_lines": [
+          1,
+          42
+        ],
+        "source_file_sha256": "9db90f7183fd3e259b5bcad68b07b655b5f707590315e86c73802e67f4d2aeb5",
+        "excerpt_sha256": "f17ad638d1647ef10314026b2a994f9f5a5f608e17bb5e140e8b9d131d3181f9",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "ML2 입력·상위 모델 계보 검사",
+        "description": "몸짓 축·라벨 집합과 단일 상위 모델 SHA를 검사하고 RAW·ML0·ML1 특징과 값으로 ML2 입력 hash를 만듭니다.",
+        "generation": "android-next 8.x sealed"
+      },
+      "public_sha256": "f17ad638d1647ef10314026b2a994f9f5a5f608e17bb5e140e8b9d131d3181f9"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/proto-drift-guard.sh",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "proto-drift-guard.sh",
+        "proposed_public_path": "evidence/kullchip/proto-drift-guard.sh",
+        "source_repository": "cheolgyu/KullChip",
+        "source_visibility": "private",
+        "source_commit": "4a9bf15e9b7b0c832ab953f728d22b469dbe4cd3",
+        "source_path": ".github/workflows/proto-check.yml",
+        "source_lines": [
+          63,
+          82
+        ],
+        "public_excerpt_lines": [
+          1,
+          20
+        ],
+        "source_file_sha256": "d40ef4c05576c0e723d24dfdf8c92d7a10857cad9357b5face0fc66a01988d42",
+        "excerpt_sha256": "9eed779d62c0897c14cf07d2cde377d45982437e6ed32f3dfbc5abb20efde933",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "공통 Protobuf 계약 drift 검사",
+        "description": "공통 proto와 Android 사본의 누락·차이를 CI에서 실패로 처리하는 shell 구간입니다. 봉인된 main의 현재 자동 실행을 뜻하지 않습니다.",
+        "generation": "historical cross-language server/Android contract"
+      },
+      "public_sha256": "9eed779d62c0897c14cf07d2cde377d45982437e6ed32f3dfbc5abb20efde933"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/shared-server-build.Dockerfile",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "shared-server-build.Dockerfile",
+        "proposed_public_path": "evidence/kullchip/shared-server-build.Dockerfile",
+        "source_repository": "cheolgyu/KullChip",
+        "source_visibility": "private",
+        "source_commit": "4a9bf15e9b7b0c832ab953f728d22b469dbe4cd3",
+        "source_path": "server/docker/Dockerfile",
+        "source_lines": [
+          45,
+          61
+        ],
+        "public_excerpt_lines": [
+          1,
+          17
+        ],
+        "source_file_sha256": "a6eeaca20dfb2e130a835bc88ee09e2d9bd885b0da46d302817c727b3bae0301",
+        "excerpt_sha256": "f431d101bce264aaa47a15addfd63f95298c12669f4277050bae640f69613620",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "서버 5개 바이너리 공통 빌드·선택 패키징",
+        "description": "공통 cargo build로 5개 바이너리를 만들고 SERVICE_NAME으로 선택한 한 개를 distroless runtime에 복사합니다.",
+        "generation": "historical cross-language server/Android contract"
+      },
+      "public_sha256": "f431d101bce264aaa47a15addfd63f95298c12669f4277050bae640f69613620"
+    },
+    {
+      "project": "kullchip",
+      "public_path": "evidence/kullchip/xai-grounding-policy.java",
+      "kind": "exact-selected-source-excerpt",
+      "source_private": true,
+      "provenance": {
+        "file": "xai-grounding-policy.java",
+        "proposed_public_path": "evidence/kullchip/xai-grounding-policy.java",
+        "source_repository": "cheolgyu/KullChip",
+        "source_visibility": "private",
+        "source_commit": "4a9bf15e9b7b0c832ab953f728d22b469dbe4cd3",
+        "source_path": "android/domain/walk/kernel-contract/src/main/java/com/kullchip/core/localintelligencelake/xai/XaiAssistantGroundingPolicy.java",
+        "source_lines": [
+          8,
+          33
+        ],
+        "public_excerpt_lines": [
+          1,
+          26
+        ],
+        "source_file_sha256": "7e8cfd477446d399b58d0a09a9461c7cab833f7d6af2d310c90d9ed6eb41cf60",
+        "excerpt_sha256": "2cda11b9cc48eccc1caacbdf90f10058f6c818df6770b1c371a427f883915d8e",
+        "transformation": "Exact contiguous source lines, newline normalized to LF; no algorithm edits",
+        "title": "XAI 설명의 근거 참조 검사",
+        "description": "설명이 인용한 metric·evidence ID가 현재 evidence package에 모두 있는지 검사합니다. 설명 내용의 진실성·인과성을 증명하는 검사는 아닙니다.",
+        "generation": "historical cross-language server/Android contract"
+      },
+      "public_sha256": "2cda11b9cc48eccc1caacbdf90f10058f6c818df6770b1c371a427f883915d8e"
+    }
+  ]
+}
