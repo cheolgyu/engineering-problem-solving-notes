@@ -1,53 +1,35 @@
-# Gamebot | 화면을 읽고 행동하는 Android 자동화 앱
+# Gamebot | 객체 탐지 모델을 Android 조작 앱으로 출시
 
-모바일게임의 보상 확인, 팝업 닫기, 가방 정리처럼 화면을 계속 지켜보며 반복하는 조작을 줄이고 싶었습니다. 정해진 좌표를 시간마다 누르면 예상하지 못한 팝업에서 잘못 동작할 수 있어, 실제 화면의 버튼과 상태를 찾은 다음 행동하도록 만들었습니다. 앱을 출시했고 이후 서비스를 종료했습니다.
+게임의 보상 확인·팝업 닫기·가방 정리 같은 반복 조작을 줄이려고 만들었습니다. **2020-2021년 AI 코딩 에이전트 없이 혼자 데이터 준비·학습·변환·Android 연동·출시까지 연결했고, 이후 서비스를 종료했습니다.** 기존 Darknet·TensorFlow Lite 프로젝트를 실제 게임 데이터와 모바일 환경에 맞게 통합한 경험입니다.
 
-AI 코딩 에이전트가 보편화되기 전인 **2020~2021년, 화면 수집·라벨링·YOLO 학습·TFLite 변환·Android 추론·상태 판단·터치 연동과 배포를 혼자 수행**했습니다. Darknet과 TensorFlow Lite 등 기존 오픈소스를 실제 게임 데이터와 모바일 환경에 맞춰 통합한 작업입니다. 탐지 알고리즘 자체를 발명했다는 의미는 아닙니다.
+**오프라인: 영상 → 프레임·라벨 → Darknet 학습 → SavedModel·TFLite. 기기: 캡처 → 전처리 → 객체 탐지 → 후보 정리 → 상태·행동 → 좌표 복원 → 접근성 입력.**
 
-오프라인에서는 **게임 녹화 → 프레임 추출 → 라벨링 → Darknet 학습 → TFLite 변환**을 수행했습니다. 앱에서는 **화면 캡처 → 이미지 전처리 → 기기 내 추론 → 상태·행동 선택 → 좌표 변환 → 터치·스와이프**로 연결했습니다. 서버 추론과 AWS는 사용하지 않았습니다.
+## 1. 실제 화면을 학습·배포 가능한 자료로 만들기
 
-## 1. 실제 화면을 학습할 데이터로 만들기
+[녹화 영상의 프레임 추출 코드](https://github.com/cheolgyu/gamebot-dataset/blob/0c42cfff65424d3199e4c99b072be58db5a3a7bd/mp4.py#L1-L19)와 LabelImg·Yolo_mark를 이용해 라벨을 만들고, 게임·화면별 자료와 [Darknet cfg](https://github.com/cheolgyu/gamebot-yolo/blob/03c1820de92cc437919604cc5c08b4aca6056ca2/cfg/sk2_p7.cfg#L1-L24)를 준비했습니다. 직접 학습한 가중치를 SavedModel·TFLite로 변환했습니다. [Darknet 실행 환경 질문](https://github.com/AlexeyAB/darknet/issues/5710)과 [자체 모델의 TensorFlow 추론 질문](https://github.com/hunglc007/tensorflow-yolov4-tflite/issues/103)은 당시 직접 겪은 시행착오의 외부 기록입니다.
 
-작은 게임 버튼을 찾으려면 실제 플레이 환경의 이미지와 위치 정보가 필요했습니다. 영상을 녹화하고 OpenCV·Yolo_mark로 프레임을 추출한 뒤 LabelImg·Yolo_mark로 라벨을 작성했습니다. 고정 위치 UI는 Python 스크립트로 반복 라벨 작성을 보조하고, 게임·화면 종류별로 자료를 정리했습니다.
+모델을 assets에 넣는 것만으로 끝나지 않았습니다. [TFLite 무압축 패키징](https://github.com/cheolgyu/gamebot-app-sk2/blob/ae8e3d21ad91e950c240dd5f1d5adda1318a174f/app/build.gradle#L35-L55)과 [자산의 offset·length를 이용한 읽기 전용 mmap](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/env/Utils.kt#L9-L25)을 맞춰 Android Interpreter에 연결했습니다. mmap 사용을 메모리 감소율로 환산하지는 않습니다.
 
-초기 SSD MobileNet 실험 이후 YOLOv4-tiny 계열을 사용했습니다. Darknet에서 학습한 가중치를 SavedModel을 거쳐 TFLite로 변환하고 앱에 모델과 라벨을 함께 넣었습니다. 데이터 준비부터 Android 실행까지 직접 연결한 것이 이 작업의 중심입니다.
+## 2. 모델의 후보와 실제 행동을 나누기
 
-당시 검증 목록은 화면 폴더 안에서 무작위로 나눴으므로 같은 녹화의 유사 프레임이 양쪽에 섞일 수 있습니다. 독립된 녹화·기기·게임 버전으로 평가한 재현 자료가 충분하지 않아 정확도 수치를 성과로 제시하지 않습니다.
+[bbox·클래스 점수 tensor를 해석](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/tflite/YoloV4Classifier.kt#L162-L235)한 뒤 [라벨별 신뢰도 기준](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/tflite/Classifier.kt#L21-L37)과 [클래스별 IoU NMS](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/tflite/YoloV4Classifier.kt#L54-L91)로 겹친 후보를 정리합니다. 남은 탐지를 직접 작성한 Target 상태 규칙으로 넘깁니다. 모델의 탐지와 게임의 업무 규칙을 같은 단계로 묶지 않았습니다.
 
-## 2. 추론 속도보다 빨리 쌓이는 화면을 다루기
+홈 버튼은 여러 화면에 함께 나타납니다. [추론 시간에 비례한 관측 창의 반복 일치 검사](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/Target.kt#L233-L273)로 잠깐 스친 화면과 지속된 상태를 구분하고, [이전 행동에 따른 후속 행동 선택](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/Target.kt#L199-L229)으로 분해·확인·결과·복귀를 연결했습니다. 게임 UI가 바뀌면 모델과 규칙을 함께 수정해야 합니다.
 
-게임은 계속 진행되는데 과거 프레임이 쌓이면 이미 사라진 팝업을 뒤늦게 누를 수 있습니다. 모든 프레임 보존보다 현재 화면에 맞는 행동이 중요해 ImageReader 버퍼를 한 장으로 제한하고 추론을 직렬 실행했습니다.
+## 3. 현재 화면과 실제 터치 좌표를 일치시키기
 
-초기에는 화면을 JPEG 파일로 저장한 뒤 다시 읽었습니다. 이 중간 저장이 필요하지 않아 Bitmap을 추론기에 직접 전달하도록 바꿔 인코딩·파일 쓰기·재읽기를 제거했습니다. 불필요한 I/O를 없앤 변경은 코드로 확인되지만, 전후 속도의 정량 비교는 남아 있지 않습니다.
+오래된 화면의 버튼을 뒤늦게 누르지 않도록 ImageReader 한 장 버퍼와 직렬 추론을 사용했습니다. 활성 경로는 Bitmap을 직접 전달하며 중간 JPEG 저장·재읽기를 거치지 않습니다. [pixelStride·rowStride·padding을 반영한 캡처](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/background/service/BackgroundService.kt#L69-L90) 뒤 모델 좌표를 실제 화면으로 되돌렸습니다.
 
-작은 입력은 빨라도 작은 버튼을 놓쳤습니다. 게임별 입력 크기를 시험하고 대표 SK2 설정에는 448×448을 사용했습니다. FP16 모델과 CPU thread 수도 조정했으나, 이를 현재 기기의 보장 FPS나 개선률로 표현하지 않습니다.
+회전 때 캡처 크기와 좌표 변환을 다시 구성하고, 자기 overlay 영역으로 향하는 터치를 막았습니다. 접근성 서비스가 실제 입력을 맡습니다. 전후 FPS·배터리 개선의 정량 수치는 별도 재현 자료가 없어 제시하지 않습니다.
 
-## 3. 버튼을 찾는 것과 눌러야 할 때를 구분하기
+## 4. 공통 엔진과 게임별 앱의 경계
 
-홈 버튼은 가방 화면에도 분해 결과 화면에도 나타납니다. 탐지 점수가 가장 높은 객체를 누르는 방식으로는 다음 행동을 결정할 수 없었습니다. 한 화면에서 찾은 객체들의 조합을 규칙과 비교하고, 직전 행동에 따라 다음에 우선할 대상을 정했습니다.
+[공통 Android 라이브러리](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/build.gradle#L1-L24)가 캡처·추론·좌표·입력·서비스 자원을 맡고, [게임 앱은 공통 Activity를 상속](https://github.com/cheolgyu/gamebot-app-sk2/blob/ae8e3d21ad91e950c240dd5f1d5adda1318a174f/app/src/main/java/com/highserpot/sk2/MainActivity.kt#L1-L7)합니다. [입력 크기·출력 규격은 Gradle BuildConfig](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/build.gradle#L20-L24)로 나눴습니다. 실제 모델 파일명과 일부 게임 규칙은 공통 코드에 고정된 부분이 남아 있습니다.
 
-SK2에서는 인벤토리 가득 참 탐지부터 장비 선택·분해·확인·결과 처리 후 절전 화면 복귀까지 연결했습니다. 화면 전환 중 잠깐 나타난 객체에 바로 반응하지 않도록 최근 탐지의 반복 일치를 확인하고, 실제 추론시간에 맞춰 이력을 참조하는 범위를 조정했습니다. 이미 누른 버튼이 남아 있어도 연속 클릭하지 않도록 행동 이력을 사용했습니다.
+종료 때 추론 thread·TFLite·ImageReader·VirtualDisplay·MediaProjection·receiver·overlay를 정리했습니다. 게임별 패키지·모델 자산·버전·서명·최적화 설정으로 출시 단위를 관리했습니다.
 
-객체 탐지는 모델이, 행동 선택은 직접 작성한 규칙이 담당했습니다. 게임 업데이트로 화면이 바뀌면 모델과 규칙을 함께 손봐야 했고, 모든 예외 화면을 자동 처리하지는 못했습니다.
+## 실행과 남은 범위
 
-## 4. 모델의 작은 화면 좌표를 실제 터치로 옮기기
+[바람의나라 실행 영상](https://www.youtube.com/watch?v=7n4ax93YGdg) · [라오킹 실행 영상](https://www.youtube.com/watch?v=iBO9y7JlAYw) · [왕좌의게임 실행 영상](https://www.youtube.com/watch?v=zg9mrhnAg3o).
 
-모델 입력의 좌표를 실제 화면에 그대로 적용하면 다른 곳을 누릅니다. 축소·자르기에 사용한 변환을 반대로 적용해 탐지 상자의 중심을 원래 화면 좌표로 옮기고 AccessibilityService로 터치와 스와이프를 실행했습니다.
-
-회전 후에는 기존 가로·세로 크기가 맞지 않아 VirtualDisplay·ImageReader와 좌표 변환을 다시 구성했습니다. 이동 가능한 제어창과 광고 overlay도 화면의 일부였으므로 현재 영역을 계산해 그 안으로 향하는 터치를 막았습니다. 좌표 계산만 고치는 대신 캡처부터 입력까지 같은 기준을 유지하는 변경이었습니다.
-
-## 5. 여러 게임에 공통 엔진을 쓰고 종료 자원을 정리하기
-
-화면 캡처·추론·overlay·접근성 입력은 공용 Android 런타임에 두고, 게임별 앱은 모델·입력 크기·라벨과 동작 규칙을 연결하도록 나눴습니다. 바람의나라·왕좌의게임·스톤에이지·SK2 등에서 게임마다 앱 전체를 다시 만드는 비용을 줄이려는 구조였습니다. 게임별 완성 기능은 서로 달랐습니다.
-
-앱을 닫아도 캡처나 추론이 남을 수 있어 종료 시 추론 thread, TFLite, ImageReader, VirtualDisplay, MediaProjection, receiver와 overlay를 명시적으로 해제했습니다. 배포는 로컬 서명 빌드와 Google Play 수동 업로드였습니다. 자동 CI/CD나 장기 누수 검증까지 구축한 것은 아닙니다.
-
-현재 서비스는 종료됐으며, 공개본에는 원본 이미지·모델·공용 모듈이 완전하게 들어 있지 않습니다. 현재 Android에서 그대로 빌드·재학습되는 상태라고 소개하지 않습니다. 남은 코드는 당시 구현과 문제 해결 경로를 확인하는 자료입니다.
-
-## 확인 자료
-
-[대표 앱과 기술 사례](https://github.com/cheolgyu/gamebot-app-sk2) · [공용 Android 런타임](https://github.com/cheolgyu/gamebot-common-background) · [학습·변환 기록](https://github.com/cheolgyu/gamebot-yolo)
-
-[바람의나라 실행 영상](https://www.youtube.com/watch?v=7n4ax93YGdg) · [라오킹 실행 영상](https://www.youtube.com/watch?v=iBO9y7JlAYw) · [왕좌의게임 실행 영상](https://www.youtube.com/watch?v=zg9mrhnAg3o)
-
-영상은 같은 Gamebot 계열의 실행 사례입니다. SK2 전용 실행 영상으로는 제시하지 않습니다.
+영상은 Gamebot 계열 실행 사례입니다. 독립 녹화·기기·게임 버전의 정확도 재현과 현재 Android 전체 빌드 상태는 별도 과제입니다. AI 에이전트 미사용·1인 개발·출시 후 종료는 작성자 확인과 당시 소스·외부 질문을 함께 제시합니다.

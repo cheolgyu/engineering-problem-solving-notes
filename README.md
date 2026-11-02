@@ -1,39 +1,29 @@
-# cheolgyu의 개발 문제해결 기록
+# 코드로 읽는 개발 문제해결 기록
 
-개인 제품을 만들며 겪은 문제, 선택한 방법, 확인한 결과와 남은 한계를 정리했습니다. 기술 목록보다 제품의 출발점과 판단 과정을 먼저 설명합니다. 고용 경력과 별개인 개인 프로젝트 기록입니다.
+개인 제품을 만들며 생긴 문제와 설계 선택을 정리했습니다. **밑줄 링크를 누르면 설명한 구현의 고정 커밋·해당 줄로 이동합니다.**
 
-2026년 10월 15일까지의 개발 기록을 바탕으로 2026년 10월 22일 공개용으로 편집했습니다. 게임봇의 출시·서비스 종료와 BlinkGame의 시선 좌우 이동 설명은 작성자 확인을 반영했습니다. 실험·개발 환경·출시 상태는 각각 구분했습니다.
+바로 살펴보기: [Stockbot의 tx/rx 생산자·소비자](https://github.com/cheolgyu/stockbot-rust/blob/18c1f8ea387f265b0b4072343067bf1e7a7cdd45/batch/src/job/bound/step_bound_upsert.rs#L34-L106) · [Gamebot의 IoU NMS](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/tflite/YoloV4Classifier.kt#L54-L91) · [MungLog의 녹음 단위 학습·평가 분리](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/munglog/source-split.kt#L8-L45) · [Blink의 이벤트 확인 대기열](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/blink/event-buffer.kt#L8-L59)
 
-## 관심 있는 분야부터 읽기
+| 프로젝트 | 어떤 제품인가 | 설계·구현 읽기 |
+| --- | --- | --- |
+| Stockbot | 주가 수집·분석·조회 | [웹](docs/stockbot.md) · [PDF](pdf/stockbot.pdf) · [공개 원본](https://github.com/cheolgyu/stockbot-rust) |
+| Gamebot | 화면 객체 탐지와 Android 자동 조작, 출시 후 종료 | [웹](docs/gamebot.md) · [PDF](pdf/gamebot.pdf) |
+| ColaZZang → KullChip | 가족 산책 기록에서 워치 센서·ML 분석으로 확장 | [웹](docs/colazzang-kullchip.md) · [PDF](pdf/colazzang-kullchip.pdf) |
+| MungLog | 집의 폰에서 반려견 소리를 감지하고 밖에서 확인 | [웹](docs/munglog.md) · [PDF](pdf/munglog.pdf) |
+| Blink | 눈동작 스크롤·페이지·시선 좌우 이동 앱 3종 | [웹](docs/blink.md) · [PDF](pdf/blink.pdf) |
 
-백엔드와 데이터 처리: **Stockbot → 멍로그 → 콜라짱·콜칩**
+## 링크가 가리키는 범위
 
-Android와 온디바이스 AI: **Gamebot → Blink → 멍로그 → 콜라짱·콜칩**
+Stockbot·Gamebot은 공개 원본의 commit/line 링크입니다. 나머지는 비공개 원본에서 설명에 필요한 부분만 공개한 **실제 코드 발췌**이며, 재작성한 독립 예제가 아닙니다. [선별 코드 목록](evidence/README.md)과 [원본 커밋·줄·해시](evidence/manifest.json)를 함께 제공합니다. 생략된 의존성이 있어 발췌만으로 앱 전체를 실행할 수는 없습니다.
 
-| 프로젝트 | 어떤 제품인가 | 중심 문제 | 읽기 |
-| --- | --- | --- | --- |
-| Stockbot | 주식 데이터를 수집하고 조건별로 조회하는 개인 리서치 도구 | 증분 수집, 배치 실행 이력, 거래일·방향 구간, DB 적재와 ARM64 배포 | [웹 문서](docs/stockbot.md) · [PDF](pdf/stockbot.pdf) |
-| Gamebot | 게임 화면을 인식하고 터치·스와이프를 실행했던 Android 앱 | 직접 데이터 준비·YOLO 학습·TFLite 변환, 프레임·상태·좌표·자원 관리 | [웹 문서](docs/gamebot.md) · [PDF](pdf/gamebot.pdf) |
-| 콜라짱·콜칩 | 가족의 반려견 산책 기록에서 센서 기반 행동 분석으로 확장한 프로젝트 | 워치 입력, 저장 후 확인·재전송, ML0·ML1·ML2와 제품화 판단 | [웹 문서](docs/colazzang-kullchip.md) · [PDF](pdf/colazzang-kullchip.pdf) |
-| 멍로그 | 집에 둔 휴대폰으로 외출 중 반려견 소리를 확인하는 앱 | 오탐과 개인화, 원격 전달, 권한, 비동기 결과와 원본 관리 | [웹 문서](docs/munglog.md) · [PDF](pdf/munglog.pdf) |
-| Blink | 눈동작을 스크롤·페이지·게임 입력으로 연결한 앱 | 깜빡임 해석, 시선 좌우 이동, 처리 대기와 모델 평가 | [웹 문서](docs/blink.md) · [PDF](pdf/blink.pdf) |
-
-각 문서는 처음 보는 독자도 제품의 필요와 데이터 흐름을 이해할 수 있도록 작성했습니다. 공개 코드는 각 문서 끝의 링크에서 확인할 수 있습니다. 전체 원본 코드·학습 데이터·당시 실행 환경이 모두 공개됐다는 뜻은 아닙니다.
+2026.11.02 코드 대조와 공개 편집을 반영했습니다. 구현·과거 시험·출시·미완료 연구를 나눠 적었습니다. 개인 프로젝트 기간은 고용 경력과 별도입니다.
 
 <a id="ai-workflow"></a>
 
 ## AI 에이전트 활용과 직접 맡은 일
 
-Gamebot은 2020~2021년 AI 코딩 에이전트 없이 데이터 준비부터 학습·변환·Android 연동과 출시를 혼자 진행한 경험입니다. KullChip과 최근 멍로그·Blink 개발, 2026년 Stockbot 현대화·검토에서는 AI 에이전트를 구현·리팩터링·테스트·리뷰에 활용했습니다. 시기와 작업을 섞어 모두 수작업 또는 모두 AI 작업으로 설명하지 않습니다.
+Gamebot은 2020-2021년 AI 코딩 에이전트 없이 데이터 준비부터 Darknet 학습·변환·Android 적용과 출시를 혼자 진행했습니다. Stockbot의 원래 Rust 수집·API·AWS·Actions도 직접 구축했습니다. 2026년 Stockbot 후속 전환, KullChip·MungLog·Blink의 최근 구현·리팩터링·시험에는 AI 에이전트를 활용했습니다.
 
-제품 문제와 작업 범위, 현장 데이터 수집, 설계 선택과 평가 기준은 직접 정했습니다. 에이전트가 만든 코드와 실험은 리뷰·회귀 시험·실제 기기와 데이터로 확인하고 채택 여부를 결정했습니다. 코드 생성이나 빌드 성공만으로 현장 성능을 주장하지 않습니다.
+문제와 작업 범위·현장 데이터·설계 경계·평가 기준은 직접 정하고 결과의 채택·중단을 판단했습니다. 코드 리뷰·회귀 시험·실제 기기·배포 산출물을 구분해 확인합니다. 예를 들어 [학습에 같은 원본이 섞이는지 검사](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/munglog/source-split.kt#L8-L45)하고, [모델 계보가 다른 ML 입력을 거부](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/kullchip/ml2-input-lineage.kt#L1-L42)하며, [이벤트의 전달·확인을 분리](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/blink/event-buffer.kt#L8-L59)합니다.
 
-- **Stockbot**: 원래 오류 경로의 종료 기록 누락과 날짜 경계 문제를 AI 보조 검토에서 확인하고, 공개 가능한 독립 예제와 합성 회귀 시험으로 수정 범위를 검증했습니다. [원래 구현과 후속 검증의 구분](https://github.com/cheolgyu/stockbot-engineering-case-study/blob/main/docs/claims-boundary.md)
-- **KullChip**: 구현·반복 리팩터링·테스트·리뷰에 활용하고, 산책 데이터와 별도 평가로 자동 추론의 제품 적용 여부를 판단했습니다. [도구 활용과 직접 맡은 책임](https://github.com/cheolgyu/kullchip-engineering-case-study/blob/main/docs/05-ai-assisted-development.md)
-- **멍로그와 Blink**: 직접 사용하며 제기한 오탐·연결·지연·촬영 조건 문제를 구현과 반복 검증으로 연결했습니다. 출시 기능과 미완성 연구 결과는 각각의 기록에서 구분했습니다.
-
-## 이번 편집에서 정리한 내용
-
-반복 목차·연표·일일 작업 기록, 커밋·테스트 건수 나열, 의미가 불명확한 성능 수치와 유사한 검증 설명을 줄였습니다. 문제의 맥락, 선택 이유, 실제 구현과 관찰 결과, 해결하지 못한 조건은 남겼습니다.
-
-개인 연락처·계정과 기기 식별값·로컬 경로·위치와 녹음 원본·비공개 소스는 포함하지 않습니다. 이 저장소에는 채용용 이력서 원본도 올리지 않습니다.
+개인 연락처·채용 이력서·녹음과 촬영 원본·위치·운영 자격증명은 이 저장소에 포함하지 않습니다.
