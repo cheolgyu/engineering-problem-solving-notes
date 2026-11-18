@@ -6,10 +6,8 @@
 | --- | --- | --- | --- | --- |
 | 2020–2021 | **Gamebot** · 게임 화면에서 버튼을 탐지하고 반복 조작하는 Android 앱. 출시 후 종료 | 라벨링, Darknet YOLO, TFLite, 화면 캡처·접근성 입력 | Gradle 공통 엔진과 게임별 패키지·모델 분리 | [코드](https://github.com/cheolgyu/gamebot-common-background) · [설계](docs/gamebot.md) · [YouTube](https://www.youtube.com/watch?v=7n4ax93YGdg) |
 | 2021–2022 | **초기 주식 데이터 도구** · 시세 수집, 기간별 통계, 웹 조회 | Go, PostgreSQL, Vue | Docker Compose 구성과 배포 기록 | [시세 수집](https://github.com/cheolgyu/sbp-inp-data) · [배치 실행](https://github.com/cheolgyu/sb-exe) · [가격 통계](https://github.com/cheolgyu/sbp-stat-price) · [거래량 통계](https://github.com/cheolgyu/sbp-stat-volume) · [조회 API](https://github.com/cheolgyu/sf-pub-api) · [Vue 웹](https://github.com/cheolgyu/sf-pub-site) |
-| 2022 | **Stockbot Go** · 종목·시세 수집과 거래량 집계 | Go, MongoDB, 일괄 upsert | — | [코드](https://github.com/cheolgyu/stockbot-go) |
-| 2022 시작 · 2023 집중 · 2025 재개 | **Stockbot Rust** · 수집부터 배치, 시계열 분석, 운영 조회까지 | Rust/Tokio, tx/rx, PostgreSQL 파티션·윈도 함수, Actix/utoipa, Yew/WASM | 공통 ARM64 Docker 빌드, GitHub Actions 4개, ECR·S3·CodeDeploy | [공개 코드 사본](https://github.com/cheolgyu/stockbot-rust-portfolio) · [설계](docs/stockbot.md) · [CI/CD](https://github.com/cheolgyu/stockbot-rust-portfolio/blob/main/docs/CI_CD.md) |
+| 2022 시작 · 2023 집중 · 2025 재개 | **[Stockbot Rust](https://github.com/cheolgyu/stockbot-rust-portfolio)** · 최종 버전. 수집부터 배치, 시계열 분석, 운영 조회까지<br>개발 이력 · [Go 버전](https://github.com/cheolgyu/stockbot-go)(2022), Spring Batch 별도 구현(2024) | Rust/Tokio, tx/rx, PostgreSQL 파티션·윈도 함수, Actix/utoipa, Yew/WASM | 공통 ARM64 Docker 빌드, GitHub Actions 4개, ECR·S3·CodeDeploy | [Rust 공개 코드 사본](https://github.com/cheolgyu/stockbot-rust-portfolio) · [설계](docs/stockbot.md) · [CI/CD](https://github.com/cheolgyu/stockbot-rust-portfolio/blob/main/docs/CI_CD.md) |
 | 2023 | **tb_row** · 표 데이터를 지정한 열 순서로 직렬화하는 Rust 라이브러리 | Rust, Serde, derive 매크로 | crates.io 배포 | [코드](https://github.com/cheolgyu/tb_row) · [패키지](https://crates.io/crates/tb_row) |
-| 2024 | **Stockbot Spring** · 별도로 구현한 시세 수집·적재 배치 | Java, Spring Batch, JDBC upsert | Tasklet 및 Reader·Processor·Writer 구성 | [관련 Stockbot 기록](docs/stockbot.md) |
 | 2024 시작 | **웹·인증 프로젝트** · 건설사 사이트(dscity·dscwall), 개인 사이트, 인증 예제 | TypeScript, Java | — | |
 | 2025–2026 | **ColaZZang** · 가족끼리 반려견 산책·배변 위치를 공유하는 앱 | Android, Wear OS, GPS, Room | 폰과 워치의 기록·마커 동기화 | [설계](docs/colazzang-kullchip.md) |
 | 2026.03 | **KullChip** · 워치 센서로 반려견 행동을 분석한 실험 | 센서 시각 정렬, Room, ML0·ML1·ML2, Rust/JNI | 이전 서버의 공통 Docker 빌드·Protobuf CI 검사 | [설계·코드 발췌](docs/colazzang-kullchip.md) |
@@ -26,7 +24,7 @@
 
 | 프로젝트 | 어떤 제품인가 | 설계·구현 읽기 |
 | --- | --- | --- |
-| Stockbot | 주가 수집·분석·조회 | [웹](docs/stockbot.md) · [PDF](pdf/stockbot.pdf) · [검토용 소스 사본](https://github.com/cheolgyu/stockbot-rust-portfolio) |
+| [Stockbot Rust](https://github.com/cheolgyu/stockbot-rust-portfolio) | 주가 수집·분석·조회 | [설계 기록](docs/stockbot.md) · [PDF](pdf/stockbot.pdf) |
 | Gamebot | 화면 객체 탐지와 Android 자동 조작, 출시 후 종료 | [웹](docs/gamebot.md) · [PDF](pdf/gamebot.pdf) |
 | ColaZZang → KullChip | 가족 산책 기록에서 워치 센서·ML 분석으로 확장 | [웹](docs/colazzang-kullchip.md) · [PDF](pdf/colazzang-kullchip.pdf) |
 | MungLog | 집의 폰에서 반려견 소리를 감지하고 밖에서 확인 | [웹](docs/munglog.md) · [PDF](pdf/munglog.pdf) |
