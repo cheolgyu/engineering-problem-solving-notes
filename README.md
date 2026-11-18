@@ -1,8 +1,28 @@
-# 코드로 읽는 개발 문제해결 기록
+# 개인 개발 프로젝트 연대기
 
-개인 제품을 만들며 생긴 문제와 설계 선택을 정리했습니다. **밑줄 링크를 누르면 설명한 구현의 고정 커밋·해당 줄로 이동합니다.**
+2021년부터 GitHub에 남은 개인 개발을 시작 시점 순으로 정리했습니다. 이어서 개발한 프로젝트에는 해당 시기를 함께 적었습니다. [프로젝트별 설계와 코드](#구현-바로-보기)
 
-바로 살펴보기: [Stockbot의 tx/rx 생산자·소비자](https://github.com/cheolgyu/stockbot-rust-portfolio/blob/27940257af4ed50fcdd3e262fbee2d316c07a06e/batch/src/job/bound/step_bound_upsert.rs#L34-L106) · [Gamebot의 IoU NMS](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/tflite/YoloV4Classifier.kt#L54-L91) · [MungLog의 녹음 단위 학습·평가 분리](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/munglog/source-split.kt#L8-L45) · [Blink의 이벤트 확인 대기열](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/blink/event-buffer.kt#L8-L59)
+| 시기 | 프로젝트 · 만든 것 | 개발 기술 | 빌드·검증·배포 | 코드·문서·영상 |
+| --- | --- | --- | --- | --- |
+| 2020–2021 | **Gamebot** · 게임 화면에서 버튼을 탐지하고 반복 조작하는 Android 앱. 출시 후 종료 | 라벨링, Darknet YOLO, TFLite, 화면 캡처·접근성 입력 | Gradle 공통 엔진과 게임별 패키지·모델 분리 | [코드](https://github.com/cheolgyu/gamebot-common-background) · [설계](docs/gamebot.md) · [YouTube](https://www.youtube.com/watch?v=7n4ax93YGdg) |
+| 2021–2022 | **초기 주식 데이터 도구** · 시세 수집, 기간별 통계, 웹 조회 | Go, PostgreSQL, Vue | Docker Compose 구성과 배포 기록 | [인프라](https://github.com/cheolgyu/stock) · [수집](https://github.com/cheolgyu/sbp-inp-data) · [웹](https://github.com/cheolgyu/sf-pub-site) |
+| 2022 | **Stockbot Go** · 종목·시세 수집과 거래량 집계 | Go, MongoDB, 일괄 upsert | — | [코드](https://github.com/cheolgyu/stockbot-go) |
+| 2022 시작 · 2023 집중 · 2025 재개 | **Stockbot Rust** · 수집부터 배치, 시계열 분석, 운영 조회까지 | Rust/Tokio, tx/rx, PostgreSQL 파티션·윈도 함수, Actix/utoipa, Yew/WASM | 공통 ARM64 Docker 빌드, GitHub Actions 4개, ECR·S3·CodeDeploy | [공개 코드 사본](https://github.com/cheolgyu/stockbot-rust-portfolio) · [설계](docs/stockbot.md) · [CI/CD](https://github.com/cheolgyu/stockbot-rust-portfolio/blob/main/docs/CI_CD.md) |
+| 2023 | **tb_row** · 표 데이터를 지정한 열 순서로 직렬화하는 Rust 라이브러리 | Rust, Serde, derive 매크로 | crates.io 배포 | [코드](https://github.com/cheolgyu/tb_row) · [패키지](https://crates.io/crates/tb_row) |
+| 2024 | **Stockbot Spring** · 별도로 구현한 시세 수집·적재 배치 | Java, Spring Batch, JDBC upsert | Tasklet 및 Reader·Processor·Writer 구성 | [관련 Stockbot 기록](docs/stockbot.md) |
+| 2024 시작 | **웹·인증 프로젝트** · 건설사 사이트(dscity·dscwall), 개인 사이트, 인증 예제 | TypeScript, Java | — | |
+| 2025–2026 | **ColaZZang** · 가족끼리 반려견 산책·배변 위치를 공유하는 앱 | Android, Wear OS, GPS, Room | 폰과 워치의 기록·마커 동기화 | [설계](docs/colazzang-kullchip.md) |
+| 2026.03 | **KullChip** · 워치 센서로 반려견 행동을 분석한 실험 | 센서 시각 정렬, Room, ML0·ML1·ML2, Rust/JNI | 이전 서버의 공통 Docker 빌드·Protobuf CI 검사 | [설계·코드 발췌](docs/colazzang-kullchip.md) |
+| 2026.06부터 | **BlinkRoll·BlinkPage** · 눈동작으로 스크롤·페이지 넘김 | Android, MediaPipe/TFLite, 공통 눈 입력 엔진 | Android 출시 빌드의 서명·ABI·AAB 확인 | [설계·코드 발췌](docs/blink.md) · [제품](https://kullstudio.com/) |
+| 2026.07부터 | **MungLog** · 집의 폰이 반려견 소리를 감지해 밖에서 확인 | Rust FFT, YAMNet/TFLite, Rust API, PostgreSQL, React PWA | GCP·Docker Compose·Cloudflare, Google Play | [설계·코드 발췌](docs/munglog.md) · [Google Play](https://play.google.com/store/apps/details?id=com.kullstudio.munglog) |
+| 2026.08부터 | **BlinkGame** · 시선으로 좌우 이동하는 게임 | Unity/C#, Android–Unity 브리지, 공통 눈 입력 엔진 | Android 릴리스 산출물 검증 | [설계·코드 발췌](docs/blink.md) · [Google Play](https://play.google.com/store/apps/details?id=com.kullstudio.blinkgame) |
+| 2026.08 | **KullMotion · KullMenu** · 반려견 움직임 재생과 개체별 학습, 냉장고 재료 기반 레시피 탐색 | Android, Wear OS, 온디바이스 ML | — | |
+| 2026.09부터 | **KullTrail** · 실제 반려견 산책을 탐험과 기록으로 연결하는 게임 | Unity, Android, GPS 경로 연동 | 개발 중 | |
+| 2026.11 | **KullSound SDK · KullFeedback · KullPixify** · 소리 감지·개인화, 앱 피드백, 픽셀 펫 기능을 각각 SDK로 개발 | Android, 온디바이스 오디오, 피드백 API | SDK 개발·검증 | |
+
+## 구현 바로 보기
+
+[Stockbot의 tx/rx 생산자·소비자](https://github.com/cheolgyu/stockbot-rust-portfolio/blob/27940257af4ed50fcdd3e262fbee2d316c07a06e/batch/src/job/bound/step_bound_upsert.rs#L34-L106) · [Gamebot의 IoU NMS](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/tflite/YoloV4Classifier.kt#L54-L91) · [MungLog의 녹음 단위 학습·평가 분리](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/munglog/source-split.kt#L8-L45) · [Blink의 이벤트 확인 대기열](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/blink/event-buffer.kt#L8-L59)
 
 | 프로젝트 | 어떤 제품인가 | 설계·구현 읽기 |
 | --- | --- | --- |
