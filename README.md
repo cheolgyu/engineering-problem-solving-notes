@@ -1,6 +1,6 @@
 # 개인 개발 프로젝트 연대기
 
-**채용 문의** · [rb7480@naver.com](mailto:rb7480@naver.com)
+백엔드·Android 개발 포지션을 찾고 있습니다. **연락처** · [rb7480@naver.com](mailto:rb7480@naver.com)
 
 2021년부터 GitHub에 남은 개인 개발을 시작 시점 순으로 정리했습니다. 이어서 개발한 프로젝트에는 해당 시기를 함께 적었습니다. [프로젝트별 설계와 코드](#구현-바로-보기)
 
@@ -45,5 +45,3 @@ Stockbot은 운영 식별값을 바꾼 공개 검토 사본, Gamebot은 공개 �
 Gamebot은 2020-2021년 AI 코딩 에이전트 없이 데이터 준비부터 Darknet 학습·변환·Android 적용과 출시를 혼자 진행했습니다. Stockbot의 원래 Rust 수집·API·AWS·Actions도 직접 구축했습니다. 2026년 Stockbot 후속 전환, KullChip·MungLog·Blink의 최근 구현·리팩터링·시험에는 AI 에이전트를 활용했습니다.
 
 문제와 작업 범위·현장 데이터·설계 경계·평가 기준은 직접 정하고 결과의 채택·중단을 판단했습니다. 코드 리뷰·회귀 시험·실제 기기·배포 산출물을 구분해 확인합니다. 예를 들어 [학습에 같은 원본이 섞이는지 검사](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/munglog/source-split.kt#L8-L45)하고, [모델 계보가 다른 ML 입력을 거부](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/kullchip/ml2-input-lineage.kt#L1-L42)하며, [이벤트의 전달·확인을 분리](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/blink/event-buffer.kt#L8-L59)합니다.
-
-공개 자료의 연락 창구는 상단의 채용 문의 이메일입니다.
