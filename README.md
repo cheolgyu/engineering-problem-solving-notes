@@ -1,5 +1,7 @@
 # 개인 개발 프로젝트 연대기
 
+**채용 문의** · [rb7480@naver.com](mailto:rb7480@naver.com)
+
 2021년부터 GitHub에 남은 개인 개발을 시작 시점 순으로 정리했습니다. 이어서 개발한 프로젝트에는 해당 시기를 함께 적었습니다. [프로젝트별 설계와 코드](#구현-바로-보기)
 
 | 시기 | 프로젝트 · 만든 것 | 개발 기술 | 빌드·검증·배포 | 코드·문서·영상 |
@@ -44,4 +46,4 @@ Gamebot은 2020-2021년 AI 코딩 에이전트 없이 데이터 준비부터 Dar
 
 문제와 작업 범위·현장 데이터·설계 경계·평가 기준은 직접 정하고 결과의 채택·중단을 판단했습니다. 코드 리뷰·회귀 시험·실제 기기·배포 산출물을 구분해 확인합니다. 예를 들어 [학습에 같은 원본이 섞이는지 검사](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/munglog/source-split.kt#L8-L45)하고, [모델 계보가 다른 ML 입력을 거부](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/kullchip/ml2-input-lineage.kt#L1-L42)하며, [이벤트의 전달·확인을 분리](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/blink/event-buffer.kt#L8-L59)합니다.
 
-개인 연락처·채용 이력서·녹음과 촬영 원본·위치·운영 자격증명은 이 저장소에 포함하지 않습니다.
+공개 자료의 연락 창구는 상단의 채용 문의 이메일입니다.
