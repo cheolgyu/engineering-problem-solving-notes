@@ -20,6 +20,8 @@
 | 2026.09부터 | **KullTrail** · 실제 반려견 산책을 탐험과 기록으로 연결하는 게임 | Unity, Android, GPS 경로 연동 | 개발 중 | |
 | 2026.11 | **KullSound SDK · KullFeedback · KullPixify** · 소리 감지·개인화, 앱 피드백, 픽셀 펫 기능을 각각 SDK로 개발 | Android, 온디바이스 오디오, 피드백 API | SDK 개발·검증 | |
 
+[vue2 이용](https://github.com/cheolgyu?tab=repositories&q=order-f)
+
 ## 구현 바로 보기
 
 [Stockbot의 tx/rx 생산자·소비자](https://github.com/cheolgyu/stockbot-rust-portfolio/blob/27940257af4ed50fcdd3e262fbee2d316c07a06e/batch/src/job/bound/step_bound_upsert.rs#L34-L106) · [Gamebot의 IoU NMS](https://github.com/cheolgyu/gamebot-common-background/blob/3338a8495375b693bcb6d94a711737d729aeccad/src/main/java/com/highserpot/tf/tflite/YoloV4Classifier.kt#L54-L91) · [MungLog의 녹음 단위 학습·평가 분리](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/munglog/source-split.kt#L8-L45) · [Blink의 이벤트 확인 대기열](https://github.com/cheolgyu/engineering-problem-solving-notes/blob/306f41cf6bb116e31b5b483ae028eec047bb4d57/evidence/blink/event-buffer.kt#L8-L59)
